@@ -66,7 +66,7 @@ def main():
     parser.add_argument("--dna", type=str, help="DNA sequence to screen")
     parser.add_argument("--file", type=str, help="File containing DNA sequence")
     parser.add_argument("--model_path", type=str, default="Llama-HelixAegis-Final", help="Path to fine-tuned adapter")
-    parser.add_argument("--base_model", type=str, default="tumorailab/protein2text-llama3.1-8B-instruct-esm2-650M", help="Base model ID")
+    parser.add_argument("--base_model", type=str, default="meta-llama/Meta-Llama-3.1-8B-Instruct", help="Base model ID")
     
     args = parser.parse_args()
     

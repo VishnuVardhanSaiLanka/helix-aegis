@@ -61,8 +61,8 @@ def train():
     
     dataset = Dataset.from_list(data)
 
-    # Load Model
-    model_id = "tumorailab/protein2text-llama3.1-8B-instruct-esm2-650M"
+    # Load Model - using Meta-Llama-3.1-8B-Instruct for biosecurity screening
+    model_id = "meta-llama/Meta-Llama-3.1-8B-Instruct"
     
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
@@ -71,18 +71,11 @@ def train():
     )
 
     print(f"Loading model: {model_id}")
-    try:
-        model = AutoModelForCausalLM.from_pretrained(
-            model_id, 
-            quantization_config=bnb_config, 
-            device_map="auto",
-            trust_remote_code=True
-        )
-    except Exception as e:
-        print(f"Standard loading failed: {e}")
-        print("Falling back to Meta-Llama-3-8B-Instruct")
-        model_id = "meta-llama/Meta-Llama-3-8B-Instruct" 
-        model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=bnb_config, device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id, 
+        quantization_config=bnb_config, 
+        device_map="auto"
+    )
 
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     tokenizer.pad_token = tokenizer.eos_token
